@@ -4,26 +4,7 @@ class Problem1
 		$numbersToCheck = *args
 		$total = 0
 	end
-=begin
-	def returnSumOfMultiples
-		$numbersToCheck.each do |number|
-			getSumOfMultiples(number)
-		end
-		return $total
-	end
-
-	def getSumOfMultiples(baseNumber)
-		(1..(1000-1)).each do |number|
-			addMultipleIfItIsAMultipleOfBaseNumber(number, baseNumber)
-		end
-	end
-
-	def addMultipleIfItIsAMultipleOfBaseNumber(number, baseNumber)
-		if((number%baseNumber == 0) && (number%3 != 0))
-			$total += number
-		end
-	end
-=end
+	
 	def returnTotal
 		addMultiplesofThree
 		addMultiplesofFive
