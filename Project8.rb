@@ -29,13 +29,8 @@ attr_accessor :statusArray , :theNumber
 	end
 
 	def getSetIndexes
-
 		for index in 0..(@statusArray.size - 4)
-			if(@statusArray[index] == 1 \
-				&& @statusArray[index + 1] == 1 \
-				&& @statusArray[index + 2] == 1 \
-				&& @statusArray[index + 3] == 1 \
-				&& @statusArray[index + 4] == 1)
+			if(@statusArray[index] == 1 && @statusArray[index + 1] == 1 && @statusArray[index + 2] == 1 && @statusArray[index + 3] == 1 && @statusArray[index + 4] == 1)
 				@firstOfFiveIndexes << index
 			end
 		end
@@ -53,6 +48,31 @@ attr_accessor :statusArray , :theNumber
 			end
 		end
 		return largestProduct
+	end
+
+	def solveProblem
+		turnEverythingOff
+
+		currentNumber = 9
+		largestProduct = 0
+
+		loop do 
+		  
+			turnOnNumber(currentNumber)
+			getSetIndexes
+			largestProduct = findLargestProduct
+
+			if (largestProduct > 0)
+				return largestProduct
+			end
+
+			if (currentNumber == 1)
+				return 0
+			end
+
+			currentNumber -= 1
+
+		end
 	end
 end
 
@@ -147,13 +167,12 @@ class Project8_Test
 end
 
 
-answer = Project8_Test.new
-
-answer.test_turnEverythingOff
-answer.test_TurnOnNumber
-answer.test_getSetIndexes
-answer.test_findLargestProduct
+#answer = Project8_Test.new
+#answer.test_turnEverythingOff
+#answer.test_TurnOnNumber
+#answer.test_getSetIndexes
+#answer.test_findLargestProduct
 
 
 realAnswer = Project8.new
-puts realAnswer.findLargestProduct
+puts realAnswer.solveProblem
