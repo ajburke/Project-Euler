@@ -44,7 +44,7 @@ class Project2
 		end
 	end
 
-	def addNextTermToFibonacciArrayIfItsEven(singleNextTerm)
+	def addNextTermToFibonacciArrayIfItsEven(singleNextTerm)alright
 		if(singleNextTerm%2 == 0)
 			$fibonacciArray << singleNextTerm
 		end		
