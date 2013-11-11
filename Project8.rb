@@ -30,11 +30,19 @@ attr_accessor :statusArray , :theNumber
 
 	def getSetIndexes
 		for index in 0..(@statusArray.size - 4)
-			if(@statusArray[index] == 1 && @statusArray[index + 1] == 1 && @statusArray[index + 2] == 1 && @statusArray[index + 3] == 1 && @statusArray[index + 4] == 1)
+			if checkForSetofFive(index)
 				@firstOfFiveIndexes << index
 			end
 		end
 		return @firstOfFiveIndexes
+	end
+
+	def checkForSetofFive(startingIndex)
+		if(@statusArray[startingIndex] == 1 && @statusArray[startingIndex + 1] == 1 && @statusArray[startingIndex + 2] == 1 && @statusArray[startingIndex + 3] == 1 && @statusArray[startingIndex + 4] == 1)
+			return true
+		else
+			return false
+		end
 	end
 
 	def findLargestProduct
@@ -167,11 +175,11 @@ class Project8_Test
 end
 
 
-#answer = Project8_Test.new
-#answer.test_turnEverythingOff
-#answer.test_TurnOnNumber
-#answer.test_getSetIndexes
-#answer.test_findLargestProduct
+answer = Project8_Test.new
+answer.test_turnEverythingOff
+answer.test_TurnOnNumber
+answer.test_getSetIndexes
+answer.test_findLargestProduct
 
 
 realAnswer = Project8.new
