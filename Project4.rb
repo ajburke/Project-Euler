@@ -20,14 +20,6 @@ class Project4
 		
 	end
 
-	def palindromeIsWithinRange?(upperLimit, palindrome)
-		if palindrome <= upperLimit
-			true
-		else
-			false
-		end
-	end
-
 	def findHighestPalindromeFromSetNumberOfDigits(digitLength)
 		upperLimit = calculateUpperLimitFromNumberOfDigits(digitLength)
 		maxLength = upperLimit.to_s.size
@@ -41,7 +33,7 @@ class Project4
 		if (maxLength%2) == 0
 			(maxPalindromeHalf).downto(1) do |n|
 				palindrome = buildPalindromeFromOptions(n, false, nil)
-					if palindromeIsWithinRange?(upperLimit, palindrome)
+					if isNumberFactorOfNLengthDigits?(palindrome, digitLength)
 						return palindrome
 					end
 			end
@@ -49,7 +41,7 @@ class Project4
 			(maxPalindromeHalf).downto(1) do |n|
 				(0..9).each do |middleDigit|
 					palindrome = buildPalindromeFromOptions(n, true, middleDigit)
-						if palindromeIsWithinRange?(upperLimit,palindrome)
+						if isNumberFactorOfNLengthDigits?(palindrome, digitLength)
 							return palindrome
 						end
 				end
@@ -57,6 +49,18 @@ class Project4
 		end
 
 		return "No palindrome within range"
+	end
+
+	def isNumberFactorOfNLengthDigits?(number, nLength)
+		maxFactorNumber = (10**nLength) - 1
+		minFactorNumber = 10**(nLength-1)
+
+		maxFactorNumber.downto(minFactorNumber) do |n| 
+			if number%n == 0 && (number/n).to_s.size == nLength
+				return true
+			end
+		end
+		return false
 	end
 
 end
@@ -86,20 +90,6 @@ class TestProject4
 		end
 	end
 
-	def test_palindromeIsWithinRange?
-		testCase = Project4.new
-		upperLimit = testCase.calculateUpperLimitFromNumberOfDigits(3)
-
-		invalidPalindrome = testCase.palindromeIsWithinRange?(upperLimit, 999999)
-		validPalindrome = testCase.palindromeIsWithinRange?(upperLimit, 888888)
-
-		if invalidPalindrome == false and validPalindrome == true
-			puts "test_palindromeIsWithinRange? success"
-		else
-			puts "test_palindromeIsWithinRange? failure"
-		end
-	end
-
 	def test_findHighestPalindromeFromSetNumberOfDigits
 		testCase = Project4.new
 		upperLimit = testCase.calculateUpperLimitFromNumberOfDigits(3)
@@ -112,18 +102,29 @@ class TestProject4
 		end
 	end
 
+	def test_isNumberFactorOfNLengthDigits?
+		testCase = Project4.new
+		isAProduct = 10000
+		isNotAProduct = 10001
+		#
+		if !testCase.isNumberFactorOfNLengthDigits?(isNotAProduct, 3) && testCase.isNumberFactorOfNLengthDigits?(isAProduct, 3)
+			puts "test_isFactorOfNLengthDigits success"
+		else
+			puts "test_isFactorOfNLengthDigits failure"
+		end
+	end
+
 end
 
 testAnswers = TestProject4.new
 testAnswers.test_calculateUpperLimitFromNumberOfDigits
 testAnswers.test_buildPalindromeFromOptions
-testAnswers.test_palindromeIsWithinRange?
+testAnswers.test_isNumberFactorOfNLengthDigits?
 testAnswers.test_findHighestPalindromeFromSetNumberOfDigits
 
 answers = Project4.new
 
-#puts "UpperLimit is #{answers.calculateUpperLimitFromNumberOfDigits(3)}"
-#puts "Answer is #{answers.findHighestPalindromeFromSetNumberOfDigits(3)}"
+puts answers.findHighestPalindromeFromSetNumberOfDigits(3)
 
 =begin
 9779
